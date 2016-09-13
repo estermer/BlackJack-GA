@@ -26,7 +26,13 @@ Create an App object that deals with the logic of the game
   flipCard - change status of card to either showing or not
 
 Create an UI object to deal with the HTML of the game
-
+  createCard a function that will take in an argument of the card object and return the cardHTML
+  slideCard is a function that will translate the card from the deck to the player or dealer spot on table
+  clearTable will clear the cards from the table
+  postBet will post the bet to the dissplay
+  playerBankDisplay will display the ammount in the players bank
+  winOrLoseDisplay
+  gameOverDisplay
 
 Create an events object to be event handlers
   Start game - initializes players money
