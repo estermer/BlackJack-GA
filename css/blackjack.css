@@ -4,36 +4,90 @@ body {
   margin: 0 !important;
   padding: 0 !important;
   background-color: black;
+  color: white;
   font-family: 'Roboto', sans-serif;
 }
 
-.wrapper {
-  display: flex;
-  margin: 0 !important;
-  padding: 0 !important;
-  height: 100vh;
-  width: 100vw;
+/********RESPONSIVE SECTIONS***********/
+
+@media screen and (min-width: 1100px){
+  .wrapper {
+    display: -webkit-flex;
+    display: flex;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .wrapperTwo {
+    display: -webkit-flex;
+    display: flex;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .section:nth-of-type(1) {
+    display: flex;
+    flex-flow: column;
+    justify-content: space-between;
+  }
+
+  .wrapperTwo > .section:nth-of-type(2) {
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: space-around;
+  }
+
 }
 
-div {
-  flex-direction: row;
+@media screen and (max-width: 1100px){
+  .section:nth-of-type(1) {
+    width: 100vmax;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .section > div:nth-of-type(1) > h1{/*Title*/
+    font-size: 80px;
+  }
+  .section > div {
+    margin:20px;
+  }
+
+  .wrapperTwo {
+    display: -webkit-flex;
+    display: flex;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .wrapperTwo > .section {
+    width: 50vmax;
+  }
+
+  .wrapperTwo > .section:nth-of-type(2) {
+    display: flex;
+    flex-flow: column ;
+    justify-content: space-around;
+  }
+
+}
+/***************************************************/
+
+.section {
+  display: block;
+  text-align: center;
   height: 100vh;
   width: 32vw;
 }
 
-/***********HEADER/TITLE*************/
-header {
-  text-align: center;
-  color: white;
-  margin: 20px;
-}
-
+/***********HEADER/TITLE and INSTRUCTIONS*************/
 h1 {
   font-size: 5vmax;
   margin: 0;
   letter-spacing: 15px;
 }
-h1 > span {
+h1 > span, h3 > span {
   color: red;
 }
 #jack {
@@ -41,4 +95,127 @@ h1 > span {
   -webkit-transform: rotate(180deg); /* Chrome, Safari, Opera */
   transform: rotate(180deg);
 }
+
+h3 {
+  margin-top: 20px;
+  letter-spacing: 5px;
+  font-weight: bold;
+}
+
+p {
+  text-align: left;
+  padding-left: 20px;
+  padding-right: 20px;
+}
 /************************************/
+
+/***************Buttons*****************/
+
+#play-buttons > button, #start-button {
+  border-radius: 10px;
+  font-weight: bold;
+}
+
+#start-button {
+  background-color: black;
+  color: white;
+  font-size: 30px;
+  border-color: red;
+
+}
+#play-buttons, #bet-buttons {
+  height: 165px;
+  width: 60px;
+}
+
+#play-buttons > button, #bet-buttons > button {
+  display: block;
+}
+
+#bet-buttons > button {
+  border-radius: 100%;
+  height: 50px;
+  width: 50px;
+  font-weight: bold;
+  margin: 20px;
+}
+
+#play-buttons > button {
+  width: 70px;
+  height: 30px;
+  margin-top: 20px;
+}
+
+/***************************************/
+
+/************GAME CONTROLS AND DISPLAY************/
+
+#game-display, #bank-display {
+  background-color: rgba(149,165,166, .5);
+  width: 25vmax;
+  height: 7vmax;
+  padding: 5px;
+  line-height: 7vmax;
+  margin: 0 auto;
+}
+#game-display > span, #bank-display > span {
+  display: inline-block;
+  vertical-align: middle;
+  line-height: normal;
+}
+
+#game-controls{
+  display: flex;
+  justify-content: center;
+}
+
+#deck, .card {
+  height: 165px;
+  width: 120px;
+  border-radius:5px;
+}
+
+#deck {
+  position: relative;
+}
+
+.card {
+  top: 0px;
+  left: -10px;
+  position: absolute;
+}
+
+#bank-display {
+  display: flex;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+}
+
+/*************************************************/
+
+/*****************USER and DEALER HANDS**************/
+
+#dealer-hand, #player-hand, #game-feedback {
+  margin: 0;
+  width: 100%;
+  height: 40%;
+  background-color: #c0392b;
+}
+
+#game-feedback {
+  height: 19%;
+  width: 97.6%;
+  line-height: 100px;
+  border: 5px solid white;
+}
+#game-feedback > span {
+  display: inline-block;
+  vertical-align: middle;
+  line-height: normal;
+  font-weight: bolder;
+  font-size: 20px;
+
+}
+
+/****************************************************/

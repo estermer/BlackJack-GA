@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8">
     <title>Black Jack</title>
+    <!-- <link rel="stylesheet" href="css/reset.css" media="screen" title="no title" charset="utf-8"> -->
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-    <!--<link rel="stylesheet" href="css/reset.css" media="screen" title="no title" charset="utf-8">-->
     <script   src="https://code.jquery.com/jquery-3.1.0.min.js"   integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s="   crossorigin="anonymous"></script>
     <link rel="stylesheet" href="css/blackjack.css" media="screen" title="no title" charset="utf-8">
     <script src="js/blackjack.js" charset="utf-8"></script>
@@ -12,20 +12,101 @@
   <body>
 
     <div class="wrapper">
-      <div>
-        <header>
+
+      <div class='section'>
+
+        <div>
+
           <h1>BL<span>A</span>CK</h1>
           <h1 id="jack"><span>J</span>ACK</h1>
-        </header>
+
+        </div>
+
+        <div>
+
+          <button id="start-button">START</button>
+
+        </div>
+
+        <div>
+
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+          </p>
+
+          <h3>INSTR<span>U</span>CTIONS</h3>
+
+        </div>
+
       </div>
 
-      <div>
+      <div class="wrapperTwo">
 
-      </div>
+        <div class='section'>
 
-      <div>
+          <div id='dealer-hand'>
+            <div>
+            </div>
+          </div>
 
-      </div>
+          <div id='game-feedback'>
+
+            <span>GAME FEEDBACK</span>
+
+          </div>
+
+          <div id='player-hand'>
+            <div >
+            </div>
+          </div>
+
+        </div>
+
+        <div class='section'>
+
+            <div id="game-display">
+
+              <span>GAME DISPLAY</span>
+
+            </div>
+
+            <div id="game-controls">
+
+              <div id="deck">
+                <div class="card" style='z-index: 1'><img class='card' src="img/cardback.jpg" alt="card back" /></div>
+                <div class="card" style='z-index: 2'><img class='card' src="img/cardback.jpg" alt="card back" /></div>
+              </div>
+
+              <div id='play-buttons'>
+
+                <button id="deal" type="button">DEAL</button>
+                <button id="hit" type="button">HIT</button>
+                <button id="stay" type="button">STAY</button>
+
+              </div>
+
+              <div id="bet-buttons">
+
+                <button id="bet" type="button">BET</button>
+                <button id="dd" type="button">DD</button>
+
+              </div>
+
+            </div>
+
+            <div id="bank-display">
+
+              <span>BANK DISPLAY</span>
+
+            </div>
+
+          </div>
+
+        </div>
+
     </div>
 
   </body>
