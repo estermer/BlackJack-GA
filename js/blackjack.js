@@ -65,6 +65,39 @@ Create an App object that deals with the logic of the game
   flipCard - change status of card to either showing or not
 */
 
+var App = {
+  gameIsOver: false,
+  newGame: function(){
+
+  },
+  shuffleCards: function(cards){
+
+  },
+  dealCard: function(){
+
+  },
+  newHand: function(){
+
+  },
+  discardHand: function(){
+
+  },
+  playerBet: function(){
+
+  },
+  adjustPlayerBank(){
+
+  },
+  flipCard: function(card){
+    if(card.faceUp){
+      card.faceUp = false;
+    } else {
+      card.faceUp = true;
+    }
+  }
+};
+
+
 /*
 Create an UI object to deal with the HTML of the game
   createCard a function that will take in an argument of the card object and return the cardHTML
