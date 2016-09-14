@@ -18,7 +18,7 @@ Took a lot of time putting together a wirefram, setting up to repository, and th
 
 Here is a picture of my initial wireframe:
 
-![HTML/CSS](img/blackjack_wireframe.jpeg)
+![HTML/CSS](img/progress/blackjack_wireframe.jpeg)
 
 #### Day 2: 
 Spent most of today just working on the HTML and CSS, playing around with features and getting it to be close to what I want for layout. Had to change a couple things from the wireframe, and made the page responsive. I really enjoyed flex boxes in class and through it woulld be the best way in laying out my page, yet I struggled a lot with it. I pretty much coded it the long way using padding, margin, and so on, then reverted back to using flex box to compare if what I did worked. Once I figured out the flex box, I was able to clean up my CSS a little.
@@ -27,5 +27,5 @@ Then I took some time to create some images and logos for my site such as the fa
 
 here is a picture of my first day of CSS and HTML:
 
-![HTML/CSS](img/after-full-day-of-html-css.jpeg)
+![HTML/CSS](img/progress/after-full-day-of-html-css.jpeg)
 
