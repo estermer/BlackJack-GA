@@ -7,7 +7,7 @@ Let's play a game of Black Jack!
 ### Directory
 ```
 img - folder of all images used in project, and a progress pictures folder
-progress_img - folder containing images of the progress of the project
+progress - folder containing images of the progress of the project
 js - location of blackjack.js
 css - location of reset.css and blackjack.css
 ```
