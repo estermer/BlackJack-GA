@@ -258,7 +258,7 @@ var UI = {
 
   },
   playerBankDisplay: function() {
-
+    $('#bank-display').html('<span>$' + gameStats.playerBankAmmount + '</span>');
   },
   winLoseGameOverDisplay: function(){
 
@@ -298,12 +298,13 @@ Create an events object to be event handlers
 var Events = {
 
   startGame: function() {
+
     //reset or initialize gameStats and DOM
     UI.clearTable();
     $('#game-display').html('<span>WELCOME TO BLACK JACK</span>');
     App.newGame();
-
-
+    UI.playerBankDisplay();
+    
   },
   deal: function() {
     if(!gameStats.cardsAreDealt){
