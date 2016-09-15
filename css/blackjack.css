@@ -175,6 +175,12 @@ p {
   border-radius:5px;
 }
 
+.card {
+  -webkit-box-shadow: 0px 0px 15px -2px rgba(0,0,0,0.75);
+  -moz-box-shadow: 0px 0px 15px -2px rgba(0,0,0,0.75);
+  box-shadow: 0px 0px 15px -2px rgba(0,0,0,0.75);
+}
+
 #deck {
   margin-top: 30px;
   position: relative;
@@ -201,6 +207,10 @@ p {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+#dealer-hand > div, #player-hand > div {
+  margin: 2px;
 }
 
 #dealer-hand, #player-hand, #game-feedback {
