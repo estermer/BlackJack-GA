@@ -42,7 +42,7 @@ var gameStats = {
     {cardName: 'eight', cardValue: 8, img: 'img/eightdiamonds.jpeg', suit: 'diamonds', faceUp: false}, {cardName: 'nine', cardValue: 9, img: 'img/ninediamonds.jpeg', suit: 'diamonds', faceUp: false},
     {cardName: 'ten', cardValue: 10, img: 'img/tendiamonds.jpeg', suit: 'diamonds', faceUp: false}, {cardName: 'jack', cardValue: 10, img: 'img/jackdiamonds.jpeg', suit: 'diamonds', faceUp: false},
     {cardName: 'queen', cardValue: 10, img: 'img/queendiamonds.jpeg', suit: 'diamonds', faceUp: false}, {cardName: 'king', cardValue: 10, img: 'img/kingdiamonds.jpeg', suit: 'diamonds', faceUp: false}],
-  dealerDeck: [],
+  deck: [],
   playerHand: [],
   dealerHand:[],
   isGameOver: undefined,//boolean true or false
@@ -66,9 +66,14 @@ Create an App object that deals with the logic of the game
 */
 
 var App = {
-  gameIsOver: false,
   newGame: function(){
-
+    gameStats.isGameOver = false;
+    gameStats.isDeckEmpty = false;
+    gameStats.playersTurn = true;
+    gameStats.deck = [];
+    gameStats.playerHand = [];
+    gameStats.dealerHand = [];
+    gameStats.playerBankAmmount = 2000;
   },
   shuffleCards: function(cards){
 
