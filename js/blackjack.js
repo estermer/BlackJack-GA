@@ -199,8 +199,15 @@ var UI = {
 
     //loop through hand and set html and append
     for(var i = 0; i < hand.length; i++){
+      var img;
+
+      if(i === 0 && hand[i].faceUp === false){
+        img = 'img/cardback.jpg';
+      } else {
+        img = hand[i].img;
+      }
       var $card = $('<div>').addClass('card');
-      var img = hand[i].img;
+
       $card.html('<img class="card" src="' + img + '">');
 
       $('#dealer-hand').append($card);
