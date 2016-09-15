@@ -19,12 +19,12 @@ var gameStats = {
     {cardName: 'five', cardValue: 5, img: 'img/fivespades.jpeg', suit: 'spades', faceUp: false}, {cardName: 'six', cardValue: 6, img: 'img/sixspades.jpeg', suit: 'spades', faceUp: false},
     {cardName: 'seven', cardValue: 7, img: 'img/sevenspades.jpeg', suit: 'spades', faceUp: false}, {cardName: 'eight', cardValue: 8, img: 'img/eightspades.jpeg', suit: 'spades', faceUp: false},
     {cardName: 'nine', cardValue: 9, img: 'img/ninespades.jpeg', suit: 'spades', faceUp: false}, {cardName: 'ten', cardValue: 10, img: 'img/tenspades.jpeg', suit:'spades' , faceUp: false},
-    {cardName: 'jack', cardValue: 10, img: 'img/jackspades.jpeg', suit: 'spades', faceUp: false}, {cardName: 'queen', cardValue: ,10 img: 'img/queenspades.jpeg', suit: 'spades', faceUp: false},
+    {cardName: 'jack', cardValue: 10, img: 'img/jackspades.jpeg', suit: 'spades', faceUp: false}, {cardName: 'queen', cardValue: 10, img: 'img/queenspades.jpeg', suit: 'spades', faceUp: false},
     {cardName: 'king', cardValue: 10, img: 'img/kingspades.jpeg', suit: 'spades', faceUp: false}, {cardName: 'ace', cardValue: 1, img: 'img/aceclubs.jpeg', suit: 'clubs', faceUp: false},
     {cardName: 'two', cardValue: 2, img: 'img/twoclubs.jpeg', suit: 'clubs', faceUp: false}, {cardName: 'three', cardValue: 3, img: 'img/threeclubs.jpeg', suit: 'clubs', faceUp: false},
     {cardName: 'four', cardValue: 4, img: 'img/fourclubs.jpeg', suit: 'clubs', faceUp: false}, {cardName: 'five', cardValue: 5, img: 'img/fiveclubs.jpeg', suit: 'clubs', faceUp: false},
     {cardName: 'six', cardValue: 6, img: 'img/sixclubs.jpeg', suit: 'clubs', faceUp: false}, {cardName: 'seven', cardValue: 7, img: 'img/sevenclubs.jpeg', suit: 'clubs', faceUp: false},
-    {cardName: 'eight', cardValue: 8, img: 'img/eightclubs.jpeg', suit: 'clubs', faceUp: false}, {cardName: 'nine', cardValue: ,9 img: 'img/nineclubs.jpeg', suit: 'clubs', faceUp: false},
+    {cardName: 'eight', cardValue: 8, img: 'img/eightclubs.jpeg', suit: 'clubs', faceUp: false}, {cardName: 'nine', cardValue: 9, img: 'img/nineclubs.jpeg', suit: 'clubs', faceUp: false},
     {cardName: 'ten', cardValue: 10, img: 'img/tenclubs.jpeg', suit: 'clubs', faceUp: false}, {cardName: 'jack', cardValue: 10, img: 'img/jackclubs.jpeg', suit: 'clubs', faceUp: false},
     {cardName: 'queen', cardValue: 10, img: 'img/queenclubs.jpeg', suit: 'clubs', faceUp: false}, {cardName: 'king', cardValue: 10, img: 'img/kingclubs.jpeg', suit: 'clubs', faceUp: false},
     {cardName: 'ace', cardValue: 1, img: 'img/acehearts.jpeg', suit: 'hearts', faceUp: false}, {cardName: 'two', cardValue: 2, img: 'img/twohearts.jpeg', suit: 'hearts', faceUp: false},
@@ -151,25 +151,34 @@ Create an events object to be event handlers
 var Events = {
 
   startGame: function() {
-
+    alert('this works');
   },
-  deal: function(){
-
+  deal: function() {
+    alert('this works');
   },
   bet: function() {
-
+    alert('this works');
   },
   doubleDown: function(){
-
+    alert('this works');
   },
-  hit: function(){
-
+  hit: function() {
+    alert('this works');
+  },
+  stay: function() {
+    alert('this works');
   }
 
 };
 
 $(function(){
 //document onload ready event handlers
+$('#start-button').on('click', Events.startGame);
+$('#deal').on('click', Events.deal);
+$('#hit').on('click', Events.hit);
+$('#stay').on('click', Events.stay);
+$('#bet').on('click', Events.bet);
+$('#dd').on('click', Events.doubleDown);
 
 
 
