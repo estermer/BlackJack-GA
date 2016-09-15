@@ -68,13 +68,38 @@ var App = {
     gameStats.isGameOver = false;
     gameStats.isDeckEmpty = false;
     gameStats.playersTurn = true;
-    gameStats.deck = [];
     gameStats.playerHand = [];
     gameStats.dealerHand = [];
     gameStats.playerBankAmmount = 2000;
+    //shuffleCards and input to the deck
+    this.shuffleCards(gameStats.cards);
   },
   shuffleCards: function(cards){
+    // set currentIndex to the last index +1
+    var currentIndex = cards.length;
+    //declare empty variables for temp value and a random index
+    var temporaryValue;
+    var randomIndex;
 
+    // Loop through array backwards from card.length to 0
+    while (0 !== currentIndex) {
+
+      // pick a random index
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      //move down an index in cards array
+      currentIndex -= 1;
+
+      // temp value is the current element
+      temporaryValue = cards[currentIndex];
+      //now set the current index to a random element at the random index
+      cards[currentIndex] = cards[randomIndex];
+      //set the element at the random index to the current element
+      cards[randomIndex] = temporaryValue;
+    }
+
+
+    //set deck to shuffled cards
+    gameStats.deck = cards;
   },
   dealCard: function(){
 
@@ -151,8 +176,9 @@ Create an events object to be event handlers
 var Events = {
 
   startGame: function() {
+    //reset or initialize gameStats
     App.newGame();
-    console.log(gameStats);
+
   },
   deal: function() {
     alert('this works');
