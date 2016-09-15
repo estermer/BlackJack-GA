@@ -17,9 +17,12 @@ var gameStats = {
   currentBet: 0,
   discards: 1,
   playerHand: [],
+  playerScore: 0,
   dealerHand:[],
-  isGameOver: false,//boolean true or false
-  playersTurn: true,//boolean true or false
+  dealerScore: 0,
+  isGameOver: false,
+  playersTurn: true,
+  playerBust: false,
 };
 
 /*
@@ -69,7 +72,9 @@ var App = {
     gameStats.isGameOver = false;
     gameStats.playersTurn = true;
     gameStats.playerHand = [];
+    gameStats.playerScore = 0;
     gameStats.dealerHand = [];
+    gameStats.dealerScore = 0;
     gameStats.playerBankAmmount = 2000;
     //shuffleCards and input to the deck
     gameStats.cards = this.shuffleCards();
@@ -112,14 +117,13 @@ var App = {
     //add 1 to discards number
     gameStats.discards++
 
+    //shuffle cards if gone through entire deck
     if(gameStats.discards === 52){
       this.cards = this.shuffleCards();
       gameStats.discards = 1;
-      console.log(gameStats.discards);
-      console.log(this.cards);
     }
 
-    //send card to player or dealer
+    //send card to player or dealer and create card on DOM
     if(gameStats.playersTurn){
       gameStats.playerHand.push(card);
       UI.createPlayerCard(gameStats.playerHand);
@@ -162,6 +166,24 @@ var App = {
 
   },
   computeHand: function(hand) {
+    var sum = 0;
+
+    // add all car values up
+    for(var i = 0; i < hand.length; i++){
+      sum += hand[i].cardValue;
+    }
+    //check for an ace in the hand if sum is over 21 subtract 10
+    for(var j = 0; j < hand.length; j++){
+      if(sum > 21 && hand[j].cardName === 'ace'){
+        sum -= 10;
+      }
+    }
+
+    if(gameStats.playersTurn){
+      gameStats.playerScore = sum;
+    } else {
+      gameStats.dealerScore = sum;
+    }
 
   }
 };
@@ -194,6 +216,7 @@ var UI = {
       $('#player-hand').append($card);
     }
 
+    App.computeHand(hand);
   },
   createDealerCard: function(hand) {
     //reset html
@@ -216,7 +239,8 @@ var UI = {
       //append to the DOM
       $('#dealer-hand').append($card);
     }
-
+    //computer dealers hand
+    App.computeHand(hand);
   },
   slideCard: function(){
 
@@ -225,6 +249,7 @@ var UI = {
     //set inner html of both hands to nothing
     $('#dealer-hand').html('');
     $('#player-hand').html('');
+    $('#game-feedback').html('<span>PLEASE PRESS THE DEAL BUTTON</span>');
   },
   postBet: function(){
 
@@ -234,6 +259,25 @@ var UI = {
   },
   winLoseGameOverDisplay: function(){
 
+  },
+  displayGameStatus: function(score) {
+    var $gameFeedBack = $('#game-feedback');
+
+    if(gameStats.playersTurn){
+      if(score < 21){
+        $gameFeedBack.html('<span>YOUR SCORE IS: ' + score + ', HIT OR STAY</span>');
+      } else if(score === 21){
+        $gameFeedBack.html('<span>YOUR SCORE IS: ' + score + 'YOU SHOULD STAY</span>');
+      } else {
+        $gameFeedBack.html('<span>' + score + '! BUST!</span>');
+      }
+    }else {
+      if(score <= 21){
+        $gameFeedBack.html('<span>DEALER SCORE IS: ' + score + '</span>');
+      } else {
+        $gameFeedBack.html('<span>' + score + '! BUST!</span>');
+      }
+    }
   }
 
 };
@@ -251,8 +295,11 @@ Create an events object to be event handlers
 var Events = {
 
   startGame: function() {
-    //reset or initialize gameStats
+    //reset or initialize gameStats and DOM
+    UI.clearTable();
+    $('#game-display').html('<span>WELCOME TO BLACK JACK</span>');
     App.newGame();
+
 
   },
   deal: function() {
@@ -264,7 +311,7 @@ var Events = {
         gameStats.playersTurn = true;
       }
     }
-
+    UI.displayGameStatus(gameStats.playerScore);
   },
   bet: function() {
     alert('this works');
@@ -273,9 +320,15 @@ var Events = {
     alert('this works');
   },
   hit: function() {
-    App.dealCard();
+    //player only allowed to hit up to 5 cards
+    if(gameStats.playerHand.length <= 5){
+      App.dealCard();
+      UI.displayGameStatus(gameStats.playerScore);
+    } else {
+      gameStats.playersTurn = false;
+      App.computerAI();
+    }
 
-    App.computeHand();
   },
   stay: function() {
     gameStats.playersTurn = false;
