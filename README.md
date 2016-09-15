@@ -29,3 +29,22 @@ here is a picture of my first day of CSS and HTML:
 
 ![HTML/CSS](img/progress/after-full-day-of-html-css.jpeg)
 
+#### Day 3:
+took a day off to do a coding challenge for employement
+
+#### Day 4:
+Was able to crack down on the JavaScript and logiic of the game today. I did most of the interaction with the player, getting all the click events and DOM events that result due to the clicks. There are still a couple of things I need to work out with the display of information and the logic that goes behind it, but for now it works.
+
+I also had an issue with passing variable values by reference when shuffling my deck of cards, but I was easily able to submit an issue to a supervisor and get some help understanding it after trying to find the answer for a while on my own.
+
+Did some touch ups on the CSS as well to make the cards ready for display and make them pop a little.
+
+Here is some pictures of my progress so far:
+![Trello](img/progress/Trello-Progress-day4.jpeg)
+
+![Start Game Features](img/progress/game-start-features.jpeg)
+
+![some initial gameplay features](img/progress/initial-gameplay-features.jpeg)
+
+
+
