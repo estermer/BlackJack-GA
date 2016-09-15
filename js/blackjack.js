@@ -149,10 +149,17 @@ var App = {
 
   },
   doubleBet: function() {
+    //add current bet back to player bank
+    gameStats.playerBankAmmount += gameStats.currentBet;
+
+    //double the current bet ammount
     gameStats.currentBet *= 2;
+
+    //subtract current bet ammount from player bank
+    gameStats.playerBankAmmount -= gameStats.currentBet;
   },
   playerWinnings: function(){
-    gameStats.playerBankAmmount += (gameStats.currentBet * 2);
+    gameStats.playerBankAmmount += gameStats.currentBet * 2;
   },
   flipCard: function(card){
     if(card.faceUp){
