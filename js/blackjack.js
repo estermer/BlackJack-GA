@@ -151,7 +151,8 @@ Create an events object to be event handlers
 var Events = {
 
   startGame: function() {
-    alert('this works');
+    App.newGame();
+    console.log(gameStats);
   },
   deal: function() {
     alert('this works');
@@ -172,16 +173,14 @@ var Events = {
 };
 
 $(function(){
-//document onload ready event handlers
-$('#start-button').on('click', Events.startGame);
-$('#deal').on('click', Events.deal);
-$('#hit').on('click', Events.hit);
-$('#stay').on('click', Events.stay);
-$('#bet').on('click', Events.bet);
-$('#dd').on('click', Events.doubleDown);
 
-
-
+  //document onload ready event handlers
+  $('#start-button').on('click', Events.startGame);
+  $('#deal').on('click', Events.deal);
+  $('#hit').on('click', Events.hit);
+  $('#stay').on('click', Events.stay);
+  $('#bet').on('click', Events.bet);
+  $('#dd').on('click', Events.doubleDown);
 
 });
 
