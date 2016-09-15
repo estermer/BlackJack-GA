@@ -169,17 +169,18 @@ p {
   justify-content: center;
 }
 
-#deck, .card {
-  height: 165px;
-  width: 120px;
+#deck, .card, .deck-card {
+  height: 110px;
+  width: 80px;
   border-radius:5px;
 }
 
 #deck {
+  margin-top: 30px;
   position: relative;
 }
 
-.card {
+.deck-card {
   top: 0px;
   left: -10px;
   position: absolute;
@@ -195,6 +196,12 @@ p {
 /*************************************************/
 
 /*****************USER and DEALER HANDS**************/
+
+#dealer-hand, #player-hand {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
 #dealer-hand, #player-hand, #game-feedback {
   margin: 0;

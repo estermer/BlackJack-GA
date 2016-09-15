@@ -14,6 +14,31 @@ Create a game stats object
 var gameStats = {
   playerBankAmmount: 0,
   betAmmount: 50,
+  currentBet: 0,
+  discards: 1,
+  playerHand: [],
+  dealerHand:[],
+  isGameOver: false,//boolean true or false
+  playersTurn: true,//boolean true or false
+};
+
+/*
+Create an App object that deals with the logic of the game
+  gameIsOver - function that checks the bank account if anything is lefft in it and changes isGameOver to true
+  newGame - function that clears and reinitializes the decks, isGameOver and playerrs bank
+  shuffleCards - checks if deck is empty, moves all cards from discard pile to dealerDeck and shuffles their order
+  dealCard- checks whose turn it is, takes a card from deck and pushes it to player or computers hand
+  newHand - when deal button is hit deal cards in alternating order by looping 4 times, calling dealCard,
+    changin player turn after each card dealt
+    on second card dealt only, diplay card facedown
+  discardHand - after hand is played empties comp and player hands, puts cards in discardDeck
+  playerBet - adds bet to betAmmount and removes it from playerBank
+  adjustPlayerBank - when player sets bet remove money from bank, add winnings back to bank
+  flipCard - change status of card to either showing or not
+*/
+
+var App = {
+
   cards: [{cardName: 'ace', cardValue: 11, img: 'img/acespades.jpeg', suit: 'spades', faceUp: false}, {cardName: 'two', cardValue: 2, img: 'img/twospades.jpeg', suit: 'spades', faceUp: false},
     {cardName: 'three', cardValue: 3, img: 'img/threespades.jpeg', suit: 'spades', faceUp: false}, {cardName: 'four', cardValue: 4, img: 'img/fourspades.jpeg', suit: 'spades', faceUp: false},
     {cardName: 'five', cardValue: 5, img: 'img/fivespades.jpeg', suit: 'spades', faceUp: false}, {cardName: 'six', cardValue: 6, img: 'img/sixspades.jpeg', suit: 'spades', faceUp: false},
@@ -40,41 +65,19 @@ var gameStats = {
     {cardName: 'eight', cardValue: 8, img: 'img/eightdiamonds.jpeg', suit: 'diamonds', faceUp: false}, {cardName: 'nine', cardValue: 9, img: 'img/ninediamonds.jpeg', suit: 'diamonds', faceUp: false},
     {cardName: 'ten', cardValue: 10, img: 'img/tendiamonds.jpeg', suit: 'diamonds', faceUp: false}, {cardName: 'jack', cardValue: 10, img: 'img/jackdiamonds.jpeg', suit: 'diamonds', faceUp: false},
     {cardName: 'queen', cardValue: 10, img: 'img/queendiamonds.jpeg', suit: 'diamonds', faceUp: false}, {cardName: 'king', cardValue: 10, img: 'img/kingdiamonds.jpeg', suit: 'diamonds', faceUp: false}],
-  deck: [],
-  playerHand: [],
-  dealerHand:[],
-  isGameOver: false,//boolean true or false
-  isDeckEmpty: false,//boolean true or false
-  playersTurn: true,//boolean true or false
-};
-
-/*
-Create an App object that deals with the logic of the game
-  gameIsOver - function that checks the bank account if anything is lefft in it and changes isGameOver to true
-  newGame - function that clears and reinitializes the decks, isGameOver and playerrs bank
-  shuffleCards - checks if deck is empty, moves all cards from discard pile to dealerDeck and shuffles their order
-  dealCard- checks whose turn it is, takes a card from deck and pushes it to player or computers hand
-  newHand - when deal button is hit deal cards in alternating order by looping 4 times, calling dealCard,
-    changin player turn after each card dealt
-    on second card dealt only, diplay card facedown
-  discardHand - after hand is played empties comp and player hands, puts cards in discardDeck
-  playerBet - adds bet to betAmmount and removes it from playerBank
-  adjustPlayerBank - when player sets bet remove money from bank, add winnings back to bank
-  flipCard - change status of card to either showing or not
-*/
-
-var App = {
   newGame: function(){
     gameStats.isGameOver = false;
-    gameStats.isDeckEmpty = false;
     gameStats.playersTurn = true;
     gameStats.playerHand = [];
     gameStats.dealerHand = [];
     gameStats.playerBankAmmount = 2000;
     //shuffleCards and input to the deck
-    this.shuffleCards(gameStats.cards);
+    gameStats.cards = this.shuffleCards();
   },
-  shuffleCards: function(cards){
+  shuffleCards: function(){
+    // console.log(gameStats.cards);
+    var cards = this.cards;
+
     // set currentIndex to the last index +1
     var currentIndex = cards.length;
     //declare empty variables for temp value and a random index
@@ -96,25 +99,53 @@ var App = {
       //set the element at the random index to the current element
       cards[randomIndex] = temporaryValue;
     }
-
-
+    // console.log(cards);
     //set deck to shuffled cards
-    gameStats.deck = cards;
+    return cards;
   },
   dealCard: function(){
 
-  },
-  newHand: function(){
+    //take the last card off the top of the deck
+    var card = this.cards.pop();
+    // add card back to beginning of cards array
+    this.cards.unshift(card);
+    //add 1 to discards number
+    gameStats.discards++
 
+    if(gameStats.discards === 52){
+      this.cards = this.shuffleCards();
+      gameStats.discards = 1;
+      console.log(gameStats.discards);
+      console.log(this.cards);
+    }
+
+    //send card to player or dealer
+    if(gameStats.playersTurn){
+      gameStats.playerHand.push(card);
+      UI.createPlayerCard(gameStats.playerHand);
+    } else {
+      gameStats.dealerHand.push(card);
+      UI.createDealerCard(gameStats.dealerHand);
+    }
   },
   discardHand: function(){
-
+    gameStats.playerHand = [];
+    gameStats.dealerHand = [];
+    UI.clearTable();
   },
   playerBet: function(){
+    //add bet ammout to the current bet
+    gameStats.currentBet += gameStats.betAmmount;
+
+    //subtract bet ammount from player bank
+    gameStats.playerBankAmmount -= gameStats.betAmmount;
 
   },
-  adjustPlayerBank(){
-
+  doubleBet: function() {
+    gameStats.currentBet *= 2;
+  },
+  playerWinnings: function(){
+    gameStats.playerBankAmmount += (gameStats.currentBet * 2);
   },
   flipCard: function(card){
     if(card.faceUp){
@@ -124,6 +155,12 @@ var App = {
     }
   },
   computerAI: function(){
+
+  },
+  handBusted: function(){
+
+  },
+  computeHand: function(hand) {
 
   }
 };
@@ -142,7 +179,32 @@ Create an UI object to deal with the HTML of the game
 
 var UI = {
 
-  createCard: function(){
+  createPlayerCard: function(hand){
+    //reset html
+    $('#player-hand').html('');
+
+    //loop through hand and set html and append
+    for(var i = 0; i < hand.length; i++){
+      var $card = $('<div>').addClass('card');
+      var img = hand[i].img;
+      $card.html('<img class="card" src="' + img + '">');
+
+      $('#player-hand').append($card);
+    }
+
+  },
+  createDealerCard: function(hand) {
+    //reset html
+    $('#dealer-hand').html('');
+
+    //loop through hand and set html and append
+    for(var i = 0; i < hand.length; i++){
+      var $card = $('<div>').addClass('card');
+      var img = hand[i].img;
+      $card.html('<img class="card" src="' + img + '">');
+
+      $('#dealer-hand').append($card);
+    }
 
   },
   slideCard: function(){
@@ -181,7 +243,15 @@ var Events = {
 
   },
   deal: function() {
-    alert('this works');
+    for(var i = 0; i < 4; i++){
+      App.dealCard();
+      if(gameStats.playersTurn){
+        gameStats.playersTurn = false;
+      } else {
+        gameStats.playersTurn = true;
+      }
+    }
+
   },
   bet: function() {
     alert('this works');
@@ -190,10 +260,13 @@ var Events = {
     alert('this works');
   },
   hit: function() {
-    alert('this works');
+    App.dealCard();
+
+    App.computeHand();
   },
   stay: function() {
-    alert('this works');
+    gameStats.playersTurn = false;
+    App.computerAI();
   }
 
 };
@@ -203,10 +276,13 @@ $(function(){
   //document onload ready event handlers
   $('#start-button').on('click', Events.startGame);
   $('#deal').on('click', Events.deal);
-  $('#hit').on('click', Events.hit);
-  $('#stay').on('click', Events.stay);
-  $('#bet').on('click', Events.bet);
-  $('#dd').on('click', Events.doubleDown);
+  if(gameStats.playersTurn){
+    $('#hit').on('click', Events.hit);
+    $('#stay').on('click', Events.stay);
+    $('#bet').on('click', Events.bet);
+    $('#dd').on('click', Events.doubleDown);
+  }
+
 
 });
 
