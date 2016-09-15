@@ -3,8 +3,6 @@
 
 /********************PSUEDO CODE********************/
 /*
-Create AI for computer logic as dealer
-
 Create a game stats object
   contains player bank ammount,
   cards , current bet ammount,
@@ -45,9 +43,9 @@ var gameStats = {
   deck: [],
   playerHand: [],
   dealerHand:[],
-  isGameOver: undefined,//boolean true or false
-  isDeckEmpty: undefined,//boolean true or false
-  playersTurn: undefined,//boolean true or false
+  isGameOver: false,//boolean true or false
+  isDeckEmpty: false,//boolean true or false
+  playersTurn: true,//boolean true or false
 };
 
 /*
@@ -99,6 +97,9 @@ var App = {
     } else {
       card.faceUp = true;
     }
+  },
+  computerAI: function(){
+
   }
 };
 
@@ -114,6 +115,29 @@ Create an UI object to deal with the HTML of the game
   gameOverDisplay
 */
 
+var UI = {
+
+  createCard: function(){
+
+  },
+  slideCard: function(){
+
+  },
+  clearTable: function(){
+
+  },
+  postBet: function(){
+
+  },
+  playerBankDisplay: function() {
+
+  },
+  winLoseGameOverDisplay: function(){
+
+  }
+
+};
+
 /*
 Create an events object to be event handlers
   Start game - initializes players money
@@ -123,3 +147,36 @@ Create an events object to be event handlers
   Hit - asks dealer to deal player another cards
 
 */
+
+var Events = {
+
+  startGame: function() {
+
+  },
+  deal: function(){
+
+  },
+  bet: function() {
+
+  },
+  doubleDown: function(){
+
+  },
+  hit: function(){
+
+  }
+
+};
+
+$(function(){
+//document onload ready event handlers
+
+
+
+
+});
+
+
+
+
+/******************************************************************************/
