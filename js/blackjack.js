@@ -252,10 +252,10 @@ var UI = {
     //set inner html of both hands to nothing
     $('#dealer-hand').html('');
     $('#player-hand').html('');
-    $('#game-feedback').html('<span>PLEASE PRESS THE DEAL BUTTON</span>');
+    $('#game-feedback').html('<span>PLACE YOUR BET, THEN PRESS DEAL</span>');
   },
   postBet: function(){
-
+    $('#game-display').html('<span> YOUR CURRENT BET: ' + gameStats.currentBet + '</span>');
   },
   playerBankDisplay: function() {
     $('#bank-display').html('<span>$' + gameStats.playerBankAmmount + '</span>');
@@ -304,7 +304,7 @@ var Events = {
     $('#game-display').html('<span>WELCOME TO BLACK JACK</span>');
     App.newGame();
     UI.playerBankDisplay();
-    
+
   },
   deal: function() {
     if(!gameStats.cardsAreDealt){
@@ -323,13 +323,22 @@ var Events = {
     }
   },
   bet: function() {
-    if(gameStats.playersTurn){
-      alert('this works');
+    //must place bet before cards are dealt
+    if(!gameStats.cardsAreDealt){
+      // can only bet when it is players turn
+      if(gameStats.playersTurn){
+        App.playerBet();
+        UI.postBet();
+        UI.playerBankDisplay();
+      }
     }
   },
   doubleDown: function(){
+    //can only DD when its players turn
     if(gameStats.playersTurn){
-      alert('this works');
+      App.doubleBet();
+      UI.postBet();
+      UI.playerBankDisplay();
     }
   },
   hit: function() {
@@ -345,6 +354,7 @@ var Events = {
     }
   },
   stay: function() {
+    //can only stay if players turn
     if(gameStats.playersTurn){
       gameStats.playersTurn = false;
       App.computerAI();
