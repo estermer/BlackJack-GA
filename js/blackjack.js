@@ -23,6 +23,7 @@ var gameStats = {
   isGameOver: false,
   playersTurn: true,
   playerBust: false,
+  cardsAreDealt: false
 };
 
 /*
@@ -71,6 +72,7 @@ var App = {
   newGame: function(){
     gameStats.isGameOver = false;
     gameStats.playersTurn = true;
+    gameStats.cardsAreDealt = false;
     gameStats.playerHand = [];
     gameStats.playerScore = 0;
     gameStats.dealerHand = [];
@@ -171,6 +173,7 @@ var App = {
     // add all car values up
     for(var i = 0; i < hand.length; i++){
       sum += hand[i].cardValue;
+      console.log(sum);
     }
     //check for an ace in the hand if sum is over 21 subtract 10
     for(var j = 0; j < hand.length; j++){
@@ -303,36 +306,48 @@ var Events = {
 
   },
   deal: function() {
-    for(var i = 0; i < 4; i++){
-      App.dealCard();
-      if(gameStats.playersTurn){
-        gameStats.playersTurn = false;
-      } else {
-        gameStats.playersTurn = true;
+    if(!gameStats.cardsAreDealt){
+      for(var i = 0; i < 4; i++){
+        App.dealCard();
+        if(gameStats.playersTurn){
+          gameStats.playersTurn = false;
+        } else {
+          gameStats.playersTurn = true;
+        }
       }
+      UI.displayGameStatus(gameStats.playerScore);
+
+      //prevent user from pressing deal until cards need to be dealt again
+      gameStats.cardsAreDealt = true;
     }
-    UI.displayGameStatus(gameStats.playerScore);
   },
   bet: function() {
-    alert('this works');
+    if(gameStats.playersTurn){
+      alert('this works');
+    }
   },
   doubleDown: function(){
-    alert('this works');
+    if(gameStats.playersTurn){
+      alert('this works');
+    }
   },
   hit: function() {
-    //player only allowed to hit up to 5 cards
-    if(gameStats.playerHand.length <= 5){
-      App.dealCard();
-      UI.displayGameStatus(gameStats.playerScore);
-    } else {
+    if(gameStats.playersTurn){
+      //player only allowed to hit up to 5 cards
+      if(gameStats.playerHand.length < 5){
+        App.dealCard();
+        UI.displayGameStatus(gameStats.playerScore);
+      } else {
+        gameStats.playersTurn = false;
+        App.computerAI();
+      }
+    }
+  },
+  stay: function() {
+    if(gameStats.playersTurn){
       gameStats.playersTurn = false;
       App.computerAI();
     }
-
-  },
-  stay: function() {
-    gameStats.playersTurn = false;
-    App.computerAI();
   }
 
 };
@@ -342,12 +357,10 @@ $(function(){
   //document onload ready event handlers
   $('#start-button').on('click', Events.startGame);
   $('#deal').on('click', Events.deal);
-  if(gameStats.playersTurn){
-    $('#hit').on('click', Events.hit);
-    $('#stay').on('click', Events.stay);
-    $('#bet').on('click', Events.bet);
-    $('#dd').on('click', Events.doubleDown);
-  }
+  $('#hit').on('click', Events.hit);
+  $('#stay').on('click', Events.stay);
+  $('#bet').on('click', Events.bet);
+  $('#dd').on('click', Events.doubleDown);
 
 
 });
