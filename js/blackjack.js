@@ -129,6 +129,7 @@ var App = {
     }
   },
   discardHand: function(){
+    //clear hands and the table DOM
     gameStats.playerHand = [];
     gameStats.dealerHand = [];
     UI.clearTable();
@@ -189,6 +190,7 @@ var UI = {
       var img = hand[i].img;
       $card.html('<img class="card" src="' + img + '">');
 
+      //append to the DOM
       $('#player-hand').append($card);
     }
 
@@ -201,15 +203,17 @@ var UI = {
     for(var i = 0; i < hand.length; i++){
       var img;
 
+      //make the first card face down
       if(i === 0 && hand[i].faceUp === false){
         img = 'img/cardback.jpg';
       } else {
         img = hand[i].img;
       }
-      var $card = $('<div>').addClass('card');
 
+      var $card = $('<div>').addClass('card');
       $card.html('<img class="card" src="' + img + '">');
 
+      //append to the DOM
       $('#dealer-hand').append($card);
     }
 
@@ -218,7 +222,9 @@ var UI = {
 
   },
   clearTable: function(){
-
+    //set inner html of both hands to nothing
+    $('#dealer-hand').html('');
+    $('#player-hand').html('');
   },
   postBet: function(){
 
