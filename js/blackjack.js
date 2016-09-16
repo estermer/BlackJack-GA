@@ -172,14 +172,17 @@ var App = {
   dealerTurn: function(){
     //second check for blackJack
     var blackJack = this.checkForBlackJack(gameStats.dealerHand);
+
     if(blackJack){
       gameStats.cardsAreDealt = false;
       UI.loseDisplay();
     }
+
     //loop through till dealer wins or loses or ties
     while(gameStats.cardsAreDealt){
 
       if(gameStats.dealerScore > 21) {
+
         //check if dealer busted
         gameStats.cardsAreDealt = false;
         this.playerWinnings();
@@ -187,7 +190,10 @@ var App = {
         UI.winDisplay();
         gameStats.currentBet = 0;
         gameStats.playersTurn = true;
+        UI.playerBankDisplay();
+
       } else if(gameStats.dealerScore > 17 && gameStats.dealerScore < gameStats.playerScore) {
+
         //check if dealer score is greater than 17 but not larger than players score
         gameStats.cardsAreDealt = false;
         this.playerWinnings();
@@ -195,22 +201,31 @@ var App = {
         UI.winDisplay();
         gameStats.currentBet = 0;
         gameStats.playersTurn = true;
+        UI.playerBankDisplay();
+
       } else if (gameStats.dealerScore === gameStats.playerScore && gameStats.dealerScore > 11){
+
         //check if dealer score is the same as players
         gameStats.cardsAreDealt = false;
         UI.tieDisplay();
         gameStats.playerBankAmmount += gameStats.currentBet;
         gameStats.currentBet = 0;
         gameStats.playersTurn = true;
+        UI.playerBankDisplay();
+
       } else if(gameStats.dealerScore > gameStats.playerScore){
+
         //check if dealer score is higher than players
         gameStats.cardsAreDealt = false;
         UI.loseDisplay();
         gameStats.currentBet = 0;
         gameStats.playersTurn = true;
+
       } else {
+
         //otherwise hit
         this.dealCard();
+
       }
 
     }
