@@ -230,12 +230,6 @@ var App = {
 
     }
   },
-  handBusted: function(score){
-    if(score > 21){
-      return true;
-    }
-    return false;
-  },
   computeHand: function(hand) {
     var sum = 0;
 
