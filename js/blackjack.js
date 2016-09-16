@@ -137,8 +137,6 @@ var App = {
   },
   discardHand: function(){
     //clear hands and the table DOM
-    gameStats.playerWins = false;
-    gameStats.dealerWins = false;
     gameStats.playerHand = [];
     gameStats.dealerHand = [];
     UI.clearTable();
@@ -171,9 +169,51 @@ var App = {
       card.faceUp = true;
     }
   },
-  computerTurn: function(){
+  dealerTurn: function(){
+    //second check for blackJack
+    var blackJack = this.checkForBlackJack(gameStats.dealerHand);
+    if(blackJack){
+      gameStats.cardsAreDealt = false;
+      UI.loseDisplay();
+    }
+    //loop through till dealer wins or loses or ties
+    while(gameStats.cardsAreDealt){
 
+      if(gameStats.dealerScore > 21) {
+        //check if dealer busted
+        gameStats.cardsAreDealt = false;
+        this.playerWinnings();
+        UI.playerBankDisplay();
+        UI.winDisplay();
+        gameStats.currentBet = 0;
+        gameStats.playersTurn = true;
+      } else if(gameStats.dealerScore > 17 && gameStats.dealerScore < gameStats.playerScore) {
+        //check if dealer score is greater than 17 but not larger than players score
+        gameStats.cardsAreDealt = false;
+        this.playerWinnings();
+        UI.playerBankDisplay();
+        UI.winDisplay();
+        gameStats.currentBet = 0;
+        gameStats.playersTurn = true;
+      } else if (gameStats.dealerScore === gameStats.playerScore && gameStats.dealerScore > 11){
+        //check if dealer score is the same as players
+        gameStats.cardsAreDealt = false;
+        UI.tieDisplay();
+        gameStats.playerBankAmmount += gameStats.currentBet;
+        gameStats.currentBet = 0;
+        gameStats.playersTurn = true;
+      } else if(gameStats.dealerScore > gameStats.playerScore){
+        //check if dealer score is higher than players
+        gameStats.cardsAreDealt = false;
+        UI.loseDisplay();
+        gameStats.currentBet = 0;
+        gameStats.playersTurn = true;
+      } else {
+        //otherwise hit
+        this.dealCard();
+      }
 
+    }
   },
   handBusted: function(score){
     if(score > 21){
@@ -216,9 +256,9 @@ var App = {
     }
     return blackJack;
   },
-  checkForWinner: function() {
-    if()
-  }
+  // checkForWinner: function() {
+  //   if()
+  // }
 };
 
 
@@ -272,7 +312,7 @@ var UI = {
       $('#dealer-hand').append($card);
     }
     //computer dealers hand
-
+    App.computeHand(hand);
   },
   slideCard: function(){
 
@@ -283,6 +323,7 @@ var UI = {
     $('#dealer-hand').html('');
     $('#player-hand').html('');
     $('#game-feedback').html('<span>PLACE YOUR BET, THEN PRESS DEAL</span>');
+    this.postBet();
   },
   postBet: function(){
     $('#game-display').html('<span> YOUR CURRENT BET: ' + gameStats.currentBet + '</span>');
@@ -358,6 +399,10 @@ var Events = {
       if (blackJack){
         //allow player to click deal for a new hand
         gameStats.cardsAreDealt = false;
+        this.playerWinnings();
+        UI.playerBankDisplay();
+        UI.winDisplay();
+        gameStats.currentBet = 0;
       }
 
       UI.displayGameStatus(gameStats.playerScore);
@@ -394,8 +439,11 @@ var Events = {
         UI.displayGameStatus(gameStats.playerScore);
 
         //check if hand busted
-        if(App.handBusted(gameStats.playerScore)){
-          gameStats.dealerWins = true;
+        if(gameStats.playerScore > 21){
+          //display loseDisplay
+          UI.loseDisplay();
+          //turn cardsDealt to false to start a new hand
+          gameStats.cardsAreDealt = false;
           //prevent another hit because the player lost
           gameStats.playersTurn = false;
         }
@@ -405,7 +453,7 @@ var Events = {
         gameStats.playersTurn = false;
         gameStats.dealerHand[0].faceUp = true;
         UI.createDealerCard(gameStats.dealerHand)
-        App.computerTurn();
+        App.dealerTurn();
 
       }
     }
@@ -414,9 +462,13 @@ var Events = {
     //can only stay if players turn
     if(gameStats.playersTurn){
       gameStats.playersTurn = false;
+
+      //flipping facedown card over for dealer
       gameStats.dealerHand[0].faceUp = true;
       UI.createDealerCard(gameStats.dealerHand)
-      App.computerAI();
+
+      //call dealers turn
+      App.dealerTurn();
     }
   }
 
