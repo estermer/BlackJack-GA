@@ -46,5 +46,14 @@ Here is some pictures of my progress so far:
 
 ![some initial gameplay features](img/progress/initial-gameplay-features.jpeg)
 
+#### Day 5: 
+Worked all day just playing around with timers, setTimeout and setInterval to get the animations for sliding the card across to the playing board. Also go to do a card flip. This was hard but fun, I finally got the hang of it near the end of the day. Had to leave for the day earrly to go to Cornell for BigRedHacks!
+
+here are a few updated pictures:
+![Animations 1](img/progress/animation1.jpeg)
+
+![Animations 2](img/progress/animation2.jpeg)
+
+
 
 
