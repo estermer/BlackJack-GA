@@ -24,6 +24,8 @@ var gameStats = {
   playersTurn: true,
   playerBust: false,
   cardsAreDealt: false,
+  playerWins: false,
+  dealerWins: false
 };
 
 /*
@@ -135,6 +137,8 @@ var App = {
   },
   discardHand: function(){
     //clear hands and the table DOM
+    gameStats.playerWins = false;
+    gameStats.dealerWins = false;
     gameStats.playerHand = [];
     gameStats.dealerHand = [];
     UI.clearTable();
@@ -167,13 +171,9 @@ var App = {
       card.faceUp = true;
     }
   },
-  computerAI: function(){
+  computerTurn: function(){
 
-    App.computeHand(gameStats.dealerHand);
 
-    if(!gameStats.playerBlackJack){
-
-    }
   },
   handBusted: function(score){
     if(score > 21){
@@ -215,6 +215,9 @@ var App = {
       }
     }
     return blackJack;
+  },
+  checkForWinner: function() {
+    if()
   }
 };
 
@@ -287,8 +290,14 @@ var UI = {
   playerBankDisplay: function() {
     $('#bank-display').html('<span>$' + gameStats.playerBankAmmount + '</span>');
   },
-  winLoseGameOverDisplay: function(){
-
+  winDisplay: function(){
+    $('#game-display').html('<span> YOU WON $' + gameStats.currentBet*2 + '!</span>');
+  },
+  loseDisplay: function(){
+    $('#game-display').html('<span> YOU LOST... SORRY :(</span>');
+  },
+  tieDisplay: function(){
+    $('#game-display').html('<span> YOU TIED, HERES YOUR MONEY BACK!</span>');
   },
   displayGameStatus: function(score) {
     var $gameFeedBack = $('#game-feedback');
@@ -335,6 +344,8 @@ var Events = {
   },
   deal: function() {
     if(!gameStats.cardsAreDealt){
+      //clearTable and hands
+      App.discardHand();
       for(var i = 0; i < 4; i++){
         App.dealCard();
         if(gameStats.playersTurn){
@@ -343,7 +354,12 @@ var Events = {
           gameStats.playersTurn = true;
         }
       }
-      App.checkForBlackJack();
+      var blackJack = App.checkForBlackJack(gameStats.playerHand);
+      if (blackJack){
+        //allow player to click deal for a new hand
+        gameStats.cardsAreDealt = false;
+      }
+
       UI.displayGameStatus(gameStats.playerScore);
 
       //prevent user from pressing deal until cards need to be dealt again
@@ -373,15 +389,24 @@ var Events = {
     if(gameStats.playersTurn){
       //player only allowed to hit up to 5 cards
       if(gameStats.playerHand.length < 5){
+
         App.dealCard();
-        console.log(gameStats.playerHand);
-        // App.computeHand(gameStats.playerHand);
         UI.displayGameStatus(gameStats.playerScore);
+
+        //check if hand busted
+        if(App.handBusted(gameStats.playerScore)){
+          gameStats.dealerWins = true;
+          //prevent another hit because the player lost
+          gameStats.playersTurn = false;
+        }
+
       } else {
+
         gameStats.playersTurn = false;
         gameStats.dealerHand[0].faceUp = true;
         UI.createDealerCard(gameStats.dealerHand)
-        App.computerAI();
+        App.computerTurn();
+
       }
     }
   },
