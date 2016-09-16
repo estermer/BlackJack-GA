@@ -242,10 +242,52 @@ p {
 /******CSS ANIMATION OF CARDS BEING SHUFFLED*********/
 /****need to add and remove class for these on the card***/
 
+.deal-card-player {
+  animation-name: dealPlayer;
+  animation-timing-function: linear;
+  animation-duration: .4s;
+}
 
+.deal-card-dealer {
+  animation-name: dealDealer;
+  animation-timing-function: linear;
+  animation-duration: .4s;
+}
 
+.begin-flip-card {
+  animation-name: beginFlip;
+  animation-timing-function: linear;
+  animation-duration: .4s;
+}
 
+.end-flip-card {
+  animation-name: endFlip;
+  animation-timing-function: linear;
+  animation-duration: .4s;
+}
 
+@keyframes beginFlip {
+  0% {-webkit-transform: rotateY(0deg); transform: rotateY(0deg);}
+  35% {-webkit-transform: rotateY(90deg); transform: rotateY(90deg);}
+  100% {-webkit-transform: rotateY(90deg); transform: rotateY(90deg);}
+}
 
+@keyframes endFlip {
+  0% {-webkit-transform: rotateY(90deg); transform: rotateY(90deg);}
+  35% {-webkit-transform: rotateY(90deg); transform: rotateY(90deg);}
+  100% {-webkit-transform: rotateY(180deg); transform: rotateY(180deg);}
+}
+
+/*need to move down and left*/
+@keyframes dealPlayer {
+  0% {top: 0px; left: -10px;}
+  100% {top: 200px; left: -350px; -webkit-transform: rotate(380deg)}/*return back to starting position instantly*/
+}
+
+/*needs to move up and left*/
+@keyframes dealDealer {
+  0% {top: 0px; left: -10px;}
+  100% {top: -200px; left: -350px; -webkit-transform: rotate(380deg)}/*return back to starting position instantly*
+}
 
 /****************************************************/
