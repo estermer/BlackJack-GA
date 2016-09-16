@@ -446,7 +446,8 @@ var Events = {
     }
   },
   hit: function() {
-    if(gameStats.playersTurn){
+    // prevent a player from hitting uunless cards have been dealt and his turn
+    if(gameStats.playersTurn && gameStats.cardsAreDealt){
       //player only allowed to hit up to 5 cards
       if(gameStats.playerHand.length < 5){
 
@@ -459,8 +460,8 @@ var Events = {
           UI.loseDisplay();
           //turn cardsDealt to false to start a new hand
           gameStats.cardsAreDealt = false;
-          //prevent another hit because the player lost
-          gameStats.playersTurn = false;
+          gameStats.playersTurn = true;
+          gameStats.currentBet = 0;
         }
 
       } else {
@@ -474,8 +475,8 @@ var Events = {
     }
   },
   stay: function() {
-    //can only stay if players turn
-    if(gameStats.playersTurn){
+    //can only stay if players turn and cards are dealt
+    if(gameStats.playersTurn && gameStats.cardsAreDealt){
       gameStats.playersTurn = false;
 
       //flipping facedown card over for dealer
