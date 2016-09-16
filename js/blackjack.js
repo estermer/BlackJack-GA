@@ -213,9 +213,11 @@ var App = {
 
       } else {
 
-        // deal card
-        App.dealCard();
-        App.computeHand(gameStats.dealerHand);
+        // var delayHit = setTimeout(function(){
+          // deal card
+          App.dealCard();
+          App.computeHand(gameStats.dealerHand);
+        // }, 800);
 
       }
 
@@ -253,7 +255,7 @@ var App = {
   checkForBlackJack: function(hand) {
     var blackJack = false;
     if(hand[0].cardName === "ace"){
-      if(hand[0].cardName === "jack" || hand[0].cardName === "queen" || hand[0].cardName === "king"){
+      if(hand[1].cardName === "jack" || hand[1].cardName === "queen" || hand[1].cardName === "king"){
         blackJack = true;
       }
     }else if(hand[0].cardName === "jack" || hand[0].cardName === "queen" || hand[0].cardName === "king"){
@@ -377,33 +379,63 @@ var Events = {
       //clearTable and hands
       App.discardHand();
 
+      //variables to alternate and check for clearInterval
       var animationClass =  'deal-card-player';
+      var i = 0;
 
-      for(var i = 0; i < 4; i++){
-
-        App.dealCard();
-
-
-        if(gameStats.playersTurn){
-          animationClass =  'deal-card-dealer';
-          gameStats.playersTurn = false;
-        } else {
-          animationClass =  'deal-card-player';
-          gameStats.playersTurn = true;
+      // for(var i = 0; i < 4; i++){
+      var dealInterval = setInterval(function(){
+        if(i === 3){
+          clearInterval(dealInterval);
         }
-      }
-      var blackJack = App.checkForBlackJack(gameStats.playerHand);
-      if (blackJack){
-        //allow player to click deal for a new hand
-        gameStats.cardsAreDealt = false;
-        this.playerWinnings();
-        UI.playerBankDisplay();
-        UI.winDisplay();
-        gameStats.currentBet = 0;
-      }
 
-      App.computeHand(gameStats.playerHand);
-      UI.displayGameStatus(gameStats.playerScore);
+        //animation for dealing card
+        $('#deal-card').addClass(animationClass);
+        console.log(animationClass);
+
+
+        var delayDeal = setTimeout(function() {
+          //deal card
+          App.dealCard();
+          //clear class//clear delay
+          $('#deal-card').removeClass(animationClass);
+
+          if(gameStats.playersTurn){
+            animationClass =  'deal-card-dealer';
+            gameStats.playersTurn = false;
+          } else {
+            animationClass =  'deal-card-player';
+            gameStats.playersTurn = true;
+          }
+
+          // update score and DISPLAY
+          App.computeHand(gameStats.playerHand);
+          UI.displayGameStatus(gameStats.playerScore);
+
+          clearTimeout(delayDeal);
+
+        }, 410);
+
+
+
+        i++;
+
+      }, 800);
+
+      var delayBlackJackCheck = setTimeout(function(){
+
+        var blackJack = App.checkForBlackJack(gameStats.playerHand);
+        if (blackJack){
+          //allow player to click deal for a new hand
+          gameStats.cardsAreDealt = false;
+          this.playerWinnings();
+          UI.playerBankDisplay();
+          UI.winDisplay();
+          gameStats.currentBet = 0;
+        }
+        clearTimeout(delayBlackJackCheck);
+      }, 2600);
+
 
       //prevent user from pressing deal until cards need to be dealt again
       gameStats.cardsAreDealt = true;
@@ -422,10 +454,11 @@ var Events = {
   },
   doubleDown: function(){
     //can only DD when its players turn
-    if(gameStats.playersTurn){
+    if(gameStats.playersTurn && gameStats.cardsAreDealt){
       App.doubleBet();
       UI.postBet();
       UI.playerBankDisplay();
+      Events.stay();
     }
   },
   hit: function() {
@@ -434,26 +467,35 @@ var Events = {
       //player only allowed to hit up to 5 cards
       if(gameStats.playerHand.length < 5){
 
-        // deal card
-        App.dealCard();
-        //compute the hand
-        App.computeHand(gameStats.playerHand);
+        $('#deal-card').addClass('deal-card-player');
+        var delayHit = setTimeout(function(){
+          // deal card
+          App.dealCard();
+          //compute the hand
+          App.computeHand(gameStats.playerHand);
+          UI.displayGameStatus(gameStats.playerScore);
 
 
-        UI.displayGameStatus(gameStats.playerScore);
+          //check if hand busted
+          if(gameStats.playerScore > 21){
+            //display loseDisplay
+            UI.loseDisplay();
+            //turn cardsDealt to false to start a new hand
+            gameStats.cardsAreDealt = false;
+            gameStats.playersTurn = true;
+            gameStats.currentBet = 0;
 
-        //check if hand busted
-        if(gameStats.playerScore > 21){
-          //display loseDisplay
-          UI.loseDisplay();
-          //turn cardsDealt to false to start a new hand
-          gameStats.cardsAreDealt = false;
-          gameStats.playersTurn = true;
-          gameStats.currentBet = 0;
+            //check if player is out of money and announce Game Over
+            App.outOfMoneyGameOver();
+          }
 
-          //check if player is out of money and announce Game Over
-          App.outOfMoneyGameOver();
-        }
+          //clear animation and timeout
+          $('#deal-card').removeClass('deal-card-player');
+          clearTimeout(delayHit);
+
+        }, 400);
+
+
 
       } else {
 
@@ -472,10 +514,19 @@ var Events = {
 
       //flipping facedown card over for dealer
       UI.showDealerCard();
+<<<<<<< HEAD
       
       //call dealers turn
       App.computeHand(gameStats.dealerHand);
       App.dealerTurn();
+=======
+
+      var delayDealerTurn = setTimeout(function() {
+          //call dealers turn
+          App.computeHand(gameStats.dealerHand);
+          App.dealerTurn();
+      }, 1200);
+>>>>>>> cardTransformation
     }
   }
 
