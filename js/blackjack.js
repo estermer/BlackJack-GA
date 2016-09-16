@@ -168,7 +168,9 @@ var App = {
 
     if(blackJack){
       gameStats.cardsAreDealt = false;
+      gameStats.playersTurn = true;
       UI.loseDisplay();
+      gameStats.currentBet = 0;
     }
 
     //loop through till dealer wins or loses or ties
@@ -428,6 +430,7 @@ var Events = {
         if (blackJack){
           //allow player to click deal for a new hand
           gameStats.cardsAreDealt = false;
+          gameStats.playersTurn = true;
           this.playerWinnings();
           UI.playerBankDisplay();
           UI.winDisplay();
