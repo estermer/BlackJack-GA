@@ -454,10 +454,11 @@ var Events = {
   },
   doubleDown: function(){
     //can only DD when its players turn
-    if(gameStats.playersTurn){
+    if(gameStats.playersTurn && gameStats.cardsAreDealt){
       App.doubleBet();
       UI.postBet();
       UI.playerBankDisplay();
+      Events.stay();
     }
   },
   hit: function() {
