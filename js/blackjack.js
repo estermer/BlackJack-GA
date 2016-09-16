@@ -23,7 +23,7 @@ var gameStats = {
   isGameOver: false,
   playersTurn: true,
   playerBust: false,
-  cardsAreDealt: false
+  cardsAreDealt: false,
 };
 
 /*
@@ -49,20 +49,20 @@ var App = {
     {cardName: 'seven', cardValue: 7, img: 'img/sevenspades.jpeg', suit: 'spades', faceUp: false}, {cardName: 'eight', cardValue: 8, img: 'img/eightspades.jpeg', suit: 'spades', faceUp: false},
     {cardName: 'nine', cardValue: 9, img: 'img/ninespades.jpeg', suit: 'spades', faceUp: false}, {cardName: 'ten', cardValue: 10, img: 'img/tenspades.jpeg', suit:'spades' , faceUp: false},
     {cardName: 'jack', cardValue: 10, img: 'img/jackspades.jpeg', suit: 'spades', faceUp: false}, {cardName: 'queen', cardValue: 10, img: 'img/queenspades.jpeg', suit: 'spades', faceUp: false},
-    {cardName: 'king', cardValue: 10, img: 'img/kingspades.jpeg', suit: 'spades', faceUp: false}, {cardName: 'ace', cardValue: 1, img: 'img/aceclubs.jpeg', suit: 'clubs', faceUp: false},
+    {cardName: 'king', cardValue: 10, img: 'img/kingspades.jpeg', suit: 'spades', faceUp: false}, {cardName: 'ace', cardValue: 11, img: 'img/aceclubs.jpeg', suit: 'clubs', faceUp: false},
     {cardName: 'two', cardValue: 2, img: 'img/twoclubs.jpeg', suit: 'clubs', faceUp: false}, {cardName: 'three', cardValue: 3, img: 'img/threeclubs.jpeg', suit: 'clubs', faceUp: false},
     {cardName: 'four', cardValue: 4, img: 'img/fourclubs.jpeg', suit: 'clubs', faceUp: false}, {cardName: 'five', cardValue: 5, img: 'img/fiveclubs.jpeg', suit: 'clubs', faceUp: false},
     {cardName: 'six', cardValue: 6, img: 'img/sixclubs.jpeg', suit: 'clubs', faceUp: false}, {cardName: 'seven', cardValue: 7, img: 'img/sevenclubs.jpeg', suit: 'clubs', faceUp: false},
     {cardName: 'eight', cardValue: 8, img: 'img/eightclubs.jpeg', suit: 'clubs', faceUp: false}, {cardName: 'nine', cardValue: 9, img: 'img/nineclubs.jpeg', suit: 'clubs', faceUp: false},
     {cardName: 'ten', cardValue: 10, img: 'img/tenclubs.jpeg', suit: 'clubs', faceUp: false}, {cardName: 'jack', cardValue: 10, img: 'img/jackclubs.jpeg', suit: 'clubs', faceUp: false},
     {cardName: 'queen', cardValue: 10, img: 'img/queenclubs.jpeg', suit: 'clubs', faceUp: false}, {cardName: 'king', cardValue: 10, img: 'img/kingclubs.jpeg', suit: 'clubs', faceUp: false},
-    {cardName: 'ace', cardValue: 1, img: 'img/acehearts.jpeg', suit: 'hearts', faceUp: false}, {cardName: 'two', cardValue: 2, img: 'img/twohearts.jpeg', suit: 'hearts', faceUp: false},
+    {cardName: 'ace', cardValue: 11, img: 'img/acehearts.jpeg', suit: 'hearts', faceUp: false}, {cardName: 'two', cardValue: 2, img: 'img/twohearts.jpeg', suit: 'hearts', faceUp: false},
     {cardName: 'three', cardValue: 3, img: 'img/threehearts.jpeg', suit: 'hearts', faceUp: false}, {cardName: 'four', cardValue: 4, img: 'img/fourhearts.jpeg', suit: 'hearts', faceUp: false},
     {cardName: 'five', cardValue: 5, img: 'img/fivehearts.jpeg', suit: 'hearts', faceUp: false}, {cardName: 'six', cardValue: 6, img: 'img/sixhearts.jpeg', suit: 'hearts', faceUp: false},
     {cardName: 'seven', cardValue: 7, img: 'img/sevenhearts.jpeg', suit: 'hearts', faceUp: false}, {cardName: 'eight', cardValue: 8, img: 'img/eighthearts.jpeg', suit: 'hearts', faceUp: false},
     {cardName: 'nine', cardValue: 9, img: 'img/ninehearts.jpeg', suit: 'hearts', faceUp: false}, {cardName: 'ten', cardValue: 10, img: 'img/tenhearts.jpeg', suit: 'hearts', faceUp: false},
     {cardName: 'jack', cardValue: 10, img: 'img/jackhearts.jpeg', suit: 'hearts', faceUp: false}, {cardName: 'queen', cardValue: 10, img: 'img/queenhearts.jpeg', suit: 'hearts', faceUp: false},
-    {cardName: 'king', cardValue: 10, img: 'img/kinghearts.jpeg', suit: 'hearts', faceUp: false}, {cardName: 'ace', cardValue: 1, img: 'img/acediamonds.jpeg', suit: 'diamonds', faceUp: false},
+    {cardName: 'king', cardValue: 10, img: 'img/kinghearts.jpeg', suit: 'hearts', faceUp: false}, {cardName: 'ace', cardValue: 11, img: 'img/acediamonds.jpeg', suit: 'diamonds', faceUp: false},
     {cardName: 'two', cardValue: 2, img: 'img/twodiamonds.jpeg', suit: 'diamonds', faceUp: false}, {cardName: 'three', cardValue: 3, img: 'img/threediamonds.jpeg', suit: 'diamonds', faceUp: false},
     {cardName: 'four', cardValue: 4, img: 'img/fourdiamonds.jpeg', suit: 'diamonds', faceUp: false}, {cardName: 'five', cardValue: 5, img: 'img/fivediamonds.jpeg', suit: 'diamonds', faceUp: false},
     {cardName: 'six', cardValue: 6, img: 'img/sixdiamonds.jpeg', suit: 'diamonds', faceUp: false}, {cardName: 'seven', cardValue: 7, img: 'img/sevendiamonds.jpeg', suit: 'diamonds', faceUp: false},
@@ -106,7 +106,6 @@ var App = {
       //set the element at the random index to the current element
       cards[randomIndex] = temporaryValue;
     }
-    // console.log(cards);
     //set deck to shuffled cards
     return cards;
   },
@@ -170,9 +169,17 @@ var App = {
   },
   computerAI: function(){
 
-  },
-  handBusted: function(){
+    App.computeHand(gameStats.dealerHand);
 
+    if(!gameStats.playerBlackJack){
+
+    }
+  },
+  handBusted: function(score){
+    if(score > 21){
+      return true;
+    }
+    return false;
   },
   computeHand: function(hand) {
     var sum = 0;
@@ -180,7 +187,7 @@ var App = {
     // add all car values up
     for(var i = 0; i < hand.length; i++){
       sum += hand[i].cardValue;
-      console.log(sum);
+      // console.log(sum);
     }
     //check for an ace in the hand if sum is over 21 subtract 10
     for(var j = 0; j < hand.length; j++){
@@ -195,6 +202,19 @@ var App = {
       gameStats.dealerScore = sum;
     }
 
+  },
+  checkForBlackJack: function(hand) {
+    var blackJack = false;
+    if(hand[0].cardName === "ace"){
+      if(hand[0].cardName === "jack" || hand[0].cardName === "queen" || hand[0].cardName === "king"){
+        blackJack = true;
+      }
+    }else if(hand[0].cardName === "jack" || hand[0].cardName === "queen" || hand[0].cardName === "king"){
+      if(hand[1].cardName === "ace"){
+        blackJack = true;
+      }
+    }
+    return blackJack;
   }
 };
 
@@ -225,7 +245,6 @@ var UI = {
       //append to the DOM
       $('#player-hand').append($card);
     }
-
     App.computeHand(hand);
   },
   createDealerCard: function(hand) {
@@ -250,13 +269,14 @@ var UI = {
       $('#dealer-hand').append($card);
     }
     //computer dealers hand
-    App.computeHand(hand);
+
   },
   slideCard: function(){
 
   },
   clearTable: function(){
     //set inner html of both hands to nothing
+    // gameStats.dealerHand[0].faceUp = true;
     $('#dealer-hand').html('');
     $('#player-hand').html('');
     $('#game-feedback').html('<span>PLACE YOUR BET, THEN PRESS DEAL</span>');
@@ -274,12 +294,12 @@ var UI = {
     var $gameFeedBack = $('#game-feedback');
 
     if(gameStats.playersTurn){
-      if(score < 21){
-        $gameFeedBack.html('<span>YOUR SCORE IS: ' + score + ', HIT OR STAY</span>');
+      if(score > 21){
+        $gameFeedBack.html('<span>' + score + '! BUST!</span>');
       } else if(score === 21){
         $gameFeedBack.html('<span>YOUR SCORE IS: ' + score + 'YOU SHOULD STAY</span>');
       } else {
-        $gameFeedBack.html('<span>' + score + '! BUST!</span>');
+        $gameFeedBack.html('<span>YOUR SCORE IS: ' + score + ', HIT OR STAY</span>');
       }
     }else {
       if(score <= 21){
@@ -323,6 +343,7 @@ var Events = {
           gameStats.playersTurn = true;
         }
       }
+      App.checkForBlackJack();
       UI.displayGameStatus(gameStats.playerScore);
 
       //prevent user from pressing deal until cards need to be dealt again
@@ -353,9 +374,13 @@ var Events = {
       //player only allowed to hit up to 5 cards
       if(gameStats.playerHand.length < 5){
         App.dealCard();
+        console.log(gameStats.playerHand);
+        // App.computeHand(gameStats.playerHand);
         UI.displayGameStatus(gameStats.playerScore);
       } else {
         gameStats.playersTurn = false;
+        gameStats.dealerHand[0].faceUp = true;
+        UI.createDealerCard(gameStats.dealerHand)
         App.computerAI();
       }
     }
@@ -364,6 +389,8 @@ var Events = {
     //can only stay if players turn
     if(gameStats.playersTurn){
       gameStats.playersTurn = false;
+      gameStats.dealerHand[0].faceUp = true;
+      UI.createDealerCard(gameStats.dealerHand)
       App.computerAI();
     }
   }
