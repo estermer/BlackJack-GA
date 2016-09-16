@@ -514,19 +514,13 @@ var Events = {
 
       //flipping facedown card over for dealer
       UI.showDealerCard();
-<<<<<<< HEAD
-      
-      //call dealers turn
-      App.computeHand(gameStats.dealerHand);
-      App.dealerTurn();
-=======
 
       var delayDealerTurn = setTimeout(function() {
           //call dealers turn
           App.computeHand(gameStats.dealerHand);
           App.dealerTurn();
       }, 1200);
->>>>>>> cardTransformation
+
     }
   }
 
