@@ -472,7 +472,7 @@ var Events = {
 
       //flipping facedown card over for dealer
       UI.showDealerCard();
-
+      
       //call dealers turn
       App.computeHand(gameStats.dealerHand);
       App.dealerTurn();
