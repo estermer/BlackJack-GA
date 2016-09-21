@@ -55,5 +55,9 @@ here are a few updated pictures:
 ![Animations 2](img/progress/animation2.jpeg)
 
 
+#### Day 6, 7, & 8
+
+Took the weekend off to go to a Hack-A-Thon at Cornell University for BigRed Hacks where my team worked on a web app combined with mobile QR scanners to authorize mass social media friending.
+
 
 
