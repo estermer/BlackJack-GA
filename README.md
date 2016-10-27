@@ -2,6 +2,8 @@
 Unit 1 project for General Assembly
 Let's play a game of Black Jack!
 
+[Click here to view the finished APP](http://www.ericstermer.com/projects/blackjack.html)
+
 ![Jack Black](http://images.contentful.com/7h71s48744nc/2vCFR1BdgQssmCU8UiUuiA/ba01b416a2c9a7cce6ee9f6e78485f50/school-of-rock.jpg)
 
 ### Directory
